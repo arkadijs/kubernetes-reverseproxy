@@ -1,0 +1,17 @@
+[Unit]
+Description=Kubernetes HTTP services proxy
+Wants=docker.service
+After=docker.service
+
+[Service]
+TimeoutStartSec=300
+ExecStartPre=-/usr/bin/docker kill kube-http-proxy
+ExecStartPre=-/usr/bin/docker rm kube-http-proxy
+ExecStartPre=/usr/bin/docker pull arkadi/kubernetes-reverseproxy:1
+ExecStart=/bin/sh -c 'exec docker run --name kube-http-proxy -p 80:80 -e ETCD=$(ip addr show dev docker0 |grep "inet " |sed -re "s/.+ ([0-9\\.]+).+/\\1/g"):4001 arkadi/kubernetes-reverseproxy:1'
+ExecStop=/usr/bin/docker stop kube-http-proxy
+ExecStop=/usr/bin/docker rm kube-http-proxy
+Restart=always
+
+[X-Fleet]
+Global=true
