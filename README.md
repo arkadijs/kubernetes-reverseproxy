@@ -21,26 +21,26 @@ This docker image (Dockerfile) uses [nginx](http://nginx.org/) as reverse proxy 
 
 1. Install [Docker](https://www.docker.com/).
 
-2. Download [automated build](https://registry.hub.docker.com/u/darkgaro/kubernetes-reverseproxy/) from public [Docker Hub Registry](https://registry.hub.docker.com/):
+2. Download [automated build](https://registry.hub.docker.com/u/arkadi/kubernetes-reverseproxy/) from public [Docker Hub Registry](https://registry.hub.docker.com/):
 
-	```docker pull darkgaro/kubernetes-reverseproxy```
+	```docker pull arkadi/kubernetes-reverseproxy```
 
    	(alternatively, you can build an image from Dockerfile:
 
-   	`docker build -t="darkgaro/kubernetes-reverseproxy" github.com/darkgaro/kubernetes-reverseproxy`)
+   	`docker build -t="arkadi/kubernetes-reverseproxy" github.com/arkadi/kubernetes-reverseproxy`)
 
 
 ### Usage
 
-    docker run -d -e CONFD_ETCD_NODE=<ETCD-IP>:<ETCD-PORT> -t -p 80:80 darkgaro/kubernetes-reverseproxy
+    docker run -d -e ETCD=<ETCD-IP>:<ETCD-PORT> -t -p 80:80 arkadi/kubernetes-reverseproxy
 
-**ETCD-IP** = IP/hostname of the etcd server, this is the IP that is accessible from wihtin the container
+**ETCD-IP** = IP/hostname of the etcd server, this is the IP that is accessible from within the container
 
 **ETCD-PORT** = Etcd port, usually : 4001
 
 Example:
 
-	docker run -d -e CONFD_ETCD_NODE=172.17.8.101:4001 -t -p 80:80 darkgaro/kubernetes-reverseproxy
+	docker run -d -e ETCD=172.17.8.101:4001 -t -p 80:80 arkadi/kubernetes-reverseproxy
 
 #### Configure kubernetes service
 
