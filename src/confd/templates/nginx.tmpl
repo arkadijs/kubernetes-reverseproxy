@@ -55,6 +55,15 @@ http {
 
 	include /etc/nginx/conf.d/*.conf;
 
+    server {
+        listen       80 default_server;
+        server_name  blank;
+        location = /health-check {
+            access_log off;
+            return 200;
+        }
+    }
+
 	{{range $spec := getvs "/registry/services/specs/*/*"}}
 	{{$data := json $spec}}
 	{{ if $data.metadata.annotations.kubernetesReverseproxy }}
